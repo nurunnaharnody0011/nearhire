@@ -39,7 +39,7 @@ export default function JobsPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+    <main className="min-h-screen bg-gradient-to-b  px-4 py-10 late-900">
       <div className="mx-auto flex max-w-6xl flex-col gap-6">
         <header className="space-y-2">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
