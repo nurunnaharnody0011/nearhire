@@ -16,7 +16,17 @@ export default function ProfilePage() {
   useEffect(() => {
     const loadProfile = async () => {
       setLoading(true);
+const checkUser = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
+  if (!user) {
+    window.location.href = "/login";
+  }
+};
+
+checkUser();
       const {
         data: { user },
         error: userError,

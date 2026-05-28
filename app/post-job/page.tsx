@@ -1,9 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import { supabase } from "@/lib/supabase";
 
+
 export default function PostJobPage() {
+  useEffect(() => {
+  const checkUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      window.location.href = "/login";
+    }
+  };
+
+  checkUser();
+}, []);
   const [form, setForm] = useState({
     title: "",
     description: "",

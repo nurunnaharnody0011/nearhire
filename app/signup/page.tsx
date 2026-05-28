@@ -35,6 +35,7 @@ export default function SignupPage() {
       });
 
       alert("Signup successful!");
+      window.location.href = "/profile";
     }
   };
 
