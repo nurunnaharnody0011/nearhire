@@ -15,6 +15,9 @@ type Job = {
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState("");
+const [categoryFilter, setCategoryFilter] = useState("");
+const [locationFilter, setLocationFilter] = useState("");
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -38,6 +41,23 @@ export default function JobsPage() {
     fetchJobs();
   }, []);
 
+const filteredJobs = jobs.filter((job) => {
+  const keywordMatch =
+    job.title?.toLowerCase().includes(keyword.toLowerCase()) ||
+    job.description?.toLowerCase().includes(keyword.toLowerCase());
+
+  const categoryMatch = categoryFilter
+    ? job.category?.toLowerCase().includes(categoryFilter.toLowerCase())
+    : true;
+
+  const locationMatch = locationFilter
+    ? job.location?.toLowerCase().includes(locationFilter.toLowerCase())
+    : true;
+
+  return keywordMatch && categoryMatch && locationMatch;
+});
+
+
   return (
     <main className="min-h-screen bg-gradient-to-b  px-4 py-10 late-900">
       <div className="mx-auto flex max-w-6xl flex-col gap-6">
@@ -46,6 +66,28 @@ export default function JobsPage() {
             Browse jobs
           </p>
           <h1 className="text-3xl font-bold md:text-4xl">Available job listings</h1>
+          <div className="grid md:grid-cols-3 gap-4 mb-8">
+  <input
+    className="border border-zinc-700 bg-zinc-900 text-white placeholder:text-zinc-400 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="Search keyword"
+    value={keyword}
+    onChange={(e) => setKeyword(e.target.value)}
+  />
+
+  <input
+    className="border border-zinc-700 bg-zinc-900 text-white placeholder:text-zinc-400 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="Filter by category"
+    value={categoryFilter}
+    onChange={(e) => setCategoryFilter(e.target.value)}
+  />
+
+  <input
+    className="border border-zinc-700 bg-zinc-900 text-white placeholder:text-zinc-400 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="Filter by location"
+    value={locationFilter}
+    onChange={(e) => setLocationFilter(e.target.value)}
+  />
+</div>
           <p className="text-slate-600">
             Explore current opportunities posted by employers in your network.
           </p>
@@ -61,7 +103,7 @@ export default function JobsPage() {
           </div>
         ) : (
           <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {jobs.map((job) => (
+            {filteredJobs.map((job) => (
               <article
                 key={job.id}
                 className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md"

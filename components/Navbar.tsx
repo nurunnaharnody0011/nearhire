@@ -38,7 +38,7 @@ export default function Navbar() {
       {user && <Link href="/post-job" className={linkStyle}>Post Job</Link>}
       {user && <Link href="/matches" className={linkStyle}>Matches</Link>}
       {user && <Link href="/profile" className={linkStyle}>Profile</Link>}
-
+{user && <Link href="/dashboard" className={linkStyle}>Dashboard</Link>}
       {!user && <Link href="/login" className={linkStyle}>Login</Link>}
       {!user && (
         <Link
