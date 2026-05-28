@@ -1,36 +1,179 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+NearHire
 
-First, run the development server:
+Project Overview
 
-```bash
+NearHire is a simple hyperlocal job matching platform.
+
+It helps:
+
+* Hirers post local jobs
+* Workers find nearby opportunities
+
+The platform focuses on simple and fast local job matching.
+
+Features
+
+* User signup and login
+* Profile page
+* Post jobs
+* Browse jobs
+* Search and filter jobs
+* Match jobs by location/category
+* Protected routes
+* Responsive navigation bar
+
+#Tech Stack
+
+Frontend:
+
+* Next.js
+* React
+* Tailwind CSS
+
+Backend:
+
+* Supabase
+
+Database:
+
+* PostgreSQL (Supabase)
+
+Authentication:
+
+* Supabase Auth
+
+⸻
+
+Database Tables
+
+profiles
+
+Stores user profile information.
+
+Fields:
+
+* id
+* name
+* email
+* role
+* location
+* category
+
+⸻
+
+jobs
+
+Stores posted jobs.
+
+Fields:
+
+* id
+* hirer_id
+* title
+* description
+* category
+* location
+* budget
+
+⸻
+
+notifications
+
+Stores notifications.
+
+Fields:
+
+* id
+* worker_id
+* job_id
+* message
+
+⸻
+
+Matching Logic
+
+NearHire uses a simple matching system.
+
+Jobs are matched based on:
+
+* location
+* category
+
+If a worker profile matches a job location or category, the job appears in the matches page.
+
+⸻
+
+Setup Instructions
+
+1. Clone the repository
+2. Install packages
+
+npm install
+
+3. Create .env.local
+
+Add:
+
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+
+4. Run the project
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+
+⸻
+
+AI Usage
+
+GitHub Copilot and ChatGPT were used for:
+
+* UI generation
+* debugging help
+* feature implementation ideas
+
+All generated code was reviewed and tested manually.
+
+⸻
+
+Limitations
+
+* No real-time chat
+* No advanced matching algorithm
+* No payment system
+* No image upload
+
+⸻
+
+Future Improvements
+
+* Real-time notifications
+* Better matching system
+* Chat between hirers and workers
+* Mobile app
+* Better dashboard analytics
+
+⸻
+
+Conclusion
+
+NearHire is a simple MVP for local job matching.
+
+The project demonstrates:
+
+* authentication
+* database integration
+* protected routes
+* CRUD operations
+* simple recommendation logic
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
