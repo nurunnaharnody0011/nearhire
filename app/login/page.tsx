@@ -21,7 +21,7 @@ if (!email || !password) {
       return;
     }
 
-    alert("Login successful!");
+    //alert("Login successful!");
     window.location.href = "/dashboard";
   };
 
