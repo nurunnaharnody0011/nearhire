@@ -4,9 +4,6 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-black text-white px-8 py-16">
       <section className="max-w-5xl mx-auto">
-        <p className="text-blue-400 font-bold tracking-[0.3em] mb-4">
-          DASHBOARD
-        </p>
 
         <h1 className="text-5xl font-extrabold mb-6">
           Welcome to NearHire

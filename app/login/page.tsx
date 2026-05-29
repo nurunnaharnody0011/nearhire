@@ -12,7 +12,10 @@ export default function LoginPage() {
       email,
       password,
     });
-
+if (!email || !password) {
+  alert("Please enter your email and password.");
+  return;
+}
     if (error) {
       alert(error.message);
       return;
