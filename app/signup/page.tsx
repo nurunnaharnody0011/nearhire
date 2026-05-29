@@ -71,14 +71,21 @@ export default function SignupPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <select
-          className="border p-3 rounded"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="worker">Worker</option>
-          <option value="hirer">Hirer</option>
-        </select>
+
+
+  <select
+  className="border p-3 rounded bg-black text-white"
+  value={role}
+  onChange={(e) => setRole(e.target.value)}
+>
+  <option value="worker" className="text-black">
+    Worker
+  </option>
+  <option value="hirer" className="text-black">
+    Hirer
+  </option>
+</select>
+
 
         <input
           type="text"
@@ -94,7 +101,12 @@ export default function SignupPage() {
         >
           Sign Up
         </button>
-
+<p className="mt-4 text-center text-sm text-gray-400">
+  Already have an account?{" "}
+  <a href="/login" className="text-blue-500 font-semibold">
+    Login
+  </a>
+</p>
       </div>
     </main>
   );
