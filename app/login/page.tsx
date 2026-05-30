@@ -6,18 +6,20 @@ import { supabase } from "@/lib/supabase";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
+    setError("");
+    if (!email || !password) {
+      setError("Please enter your email and password.");
+      return;
+    }
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-if (!email || !password) {
-  alert("Please enter your email and password.");
-  return;
-}
     if (error) {
-      alert(error.message);
+      setError(error.message);
       return;
     }
 
@@ -45,7 +47,11 @@ if (!email || !password) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
+{error && (
+  <p className="text-red-500 text-sm">
+    {error}
+  </p>
+)}
         <button
           onClick={handleLogin}
           className="bg-black text-white p-3 rounded"

@@ -7,10 +7,38 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("worker");
+  const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
+  const [errors, setErrors] = useState({
+  name: "",
+  email: "",
+  password: "",
+  role: "",
+  location: "",
+});
 
   const handleSignup = async () => {
+    const newErrors = {
+  name: "",
+  email: "",
+  password: "",
+  role: "",
+  location: "",
+};
+
+if (!name.trim()) newErrors.name = "Name is required";
+if (!email.trim()) newErrors.email = "Email is required";
+if (!password.trim()) newErrors.password = "Password is required";
+if (!role.trim()) newErrors.role = "Please select a role";
+if (!location.trim()) newErrors.location = "Location is required";
+
+setErrors(newErrors);
+
+const hasError = Object.values(newErrors).some((error) => error !== "");
+
+if (hasError) {
+  return;
+}
     // Create auth user
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -26,15 +54,20 @@ export default function SignupPage() {
     const user = data.user;
 
     if (user) {
-      await supabase.from("profiles").insert({
-        id: user.id,
-        name,
-        email,
-        role,
-        location,
-      });
+      const { error: profileError } = await supabase.from("profiles").insert({
+  id: user.id,
+  name,
+  email,
+  role,
+  location,
+});
 
-      alert("Signup successful!");
+if (profileError) {
+  alert(profileError.message);
+  return;
+}
+
+      //alert("Signup successful!");
       window.location.href = "/profile";
     }
   };
@@ -54,6 +87,7 @@ export default function SignupPage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {errors.name && !name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
         <input
           type="email"
@@ -62,6 +96,7 @@ export default function SignupPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && !email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
         <input
           type="password"
@@ -70,6 +105,7 @@ export default function SignupPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && !password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
 
 
@@ -78,13 +114,11 @@ export default function SignupPage() {
   value={role}
   onChange={(e) => setRole(e.target.value)}
 >
-  <option value="worker" className="text-black">
-    Worker
-  </option>
-  <option value="hirer" className="text-black">
-    Hirer
-  </option>
+  <option value="">Select Role</option>
+  <option value="worker">Worker</option>
+  <option value="employer">Employer</option>
 </select>
+{errors.role && !role && <p className="text-red-500 text-sm">{errors.role}</p>}
 
 
         <input
@@ -94,6 +128,7 @@ export default function SignupPage() {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
+        {errors.location && !location && <p className="text-red-500 text-sm">{errors.location}</p>}
 
         <button
           onClick={handleSignup}

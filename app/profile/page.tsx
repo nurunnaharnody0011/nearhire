@@ -42,7 +42,7 @@ checkUser();
         .from("profiles")
         .select("email, role, location")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error("Error loading profile:", error);
@@ -51,6 +51,8 @@ checkUser();
           role: "User",
           location: "Not set",
         });
+        setLoading(false);
+        return;
       } else {
         setProfile({
           email: data?.email ?? user.email ?? "",
