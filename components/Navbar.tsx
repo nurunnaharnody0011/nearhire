@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 
 export default function Navbar() {
   const [user, setUser] = useState<any>(null);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     async function getUser() {
@@ -14,6 +15,18 @@ export default function Navbar() {
       } = await supabase.auth.getUser();
 
       setUser(user);
+
+      if (user) {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        if (!error && data) {
+          setRole(data.role);
+        }
+      }
     }
 
     getUser();
@@ -35,8 +48,8 @@ export default function Navbar() {
 
       <Link href="/jobs" className={linkStyle}>Jobs</Link>
 
-      {user && <Link href="/post-job" className={linkStyle}>Post Job</Link>}
-      {user && <Link href="/matches" className={linkStyle}>Matches</Link>}
+      {user && role === "hirer" && <Link href="/post-job" className={linkStyle}>Post Job</Link>}
+      {user && role === "worker" && <Link href="/matches" className={linkStyle}>Matches</Link>}
       {user && <Link href="/profile" className={linkStyle}>Profile</Link>}
 {user && <Link href="/dashboard" className={linkStyle}>Dashboard</Link>}
       {!user && <Link href="/login" className={linkStyle}>Login</Link>}

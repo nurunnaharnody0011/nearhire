@@ -116,9 +116,9 @@ if (profileError) {
 >
   <option value="">Select Role</option>
   <option value="worker">Worker</option>
-  <option value="employer">Employer</option>
+  <option value="hirer">Hirer</option>
 </select>
-{errors.role && !role && <p className="text-red-500 text-sm">{errors.role}</p>}
+{errors.role && !role && <p className="text-red-500 text-sm">{errors.role}</p> }
 
 
         <input
